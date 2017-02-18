@@ -1,0 +1,74 @@
+{
+    "servers": {
+        "elastic": {
+            "enabled": true,
+            "guest-ip": "10.0.3.10",
+            "guest-hostname": "elastic.vm.server",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "logstash": {
+            "enabled": true,
+            "guest-ip": "10.0.3.30",
+            "guest-hostname": "logstash.vm.server",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "kibana": {
+            "enabled": true,
+            "guest-ip": "10.0.3.20",
+            "guest-hostname": "kibana.vm.server",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "base-01": {
+            "enabled": true,
+            "guest-ip": "10.0.3.40",
+            "guest-hostname": "base01.vm.server",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "base-02": {
+            "enabled": true,
+            "guest-ip": "10.0.3.41",
+            "guest-hostname": "base02.vm.server",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        }
+    }
+}
