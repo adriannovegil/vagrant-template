@@ -20,8 +20,11 @@ def configVirtualBox(machine_instance, server_config)
 #sudo service ssh restart
 #EOC
 
-    # [TODO] Meter el group como una variable del script de configuracion.
-    vb.customize ["modifyvm", :id, "--groups", "/vagrant-group"]
+    # Configure the instance group
+    if server_config["group"]
+      vb.customize ["modifyvm", :id, "--groups", "/" + server_config["group"]]
+    end
+
     # http://stackoverflow.com/questions/19490652/how-to-sync-time-on-host-wake-up-within-virtualbox
     vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000 ]
     vb.gui = false

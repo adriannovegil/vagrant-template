@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require_relative "lib/required_plugins.rb"
 require_relative "lib/config_loader.rb"
 require_relative "lib/config_virtualbox.rb"
 require_relative "lib/validate_server_config.rb"
