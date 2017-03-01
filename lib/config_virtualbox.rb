@@ -44,13 +44,15 @@ EOC
   end
 
   # Set box type based on configuration. Defaults to `precise64` (Ubuntu).
-  # The URL that you see below is from Vagrant's own list of available boxes:
-  # http://www.vagrantbox.es/
   if !server_config["box"]
-    machine_instance.vm.box = "precise64"
-    machine_instance.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    machine_instance.vm.box = "ubuntu/trusty64"
   else
     machine_instance.vm.box = server_config["box"]
+  end
+  # Set the box URL
+  # The URL that you see below is from Vagrant's own list of available boxes:
+  # http://www.vagrantbox.es/
+  if server_config["box-url"]
     machine_instance.vm.box_url = server_config["box-url"]
   end
 
