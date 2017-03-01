@@ -11,14 +11,16 @@ def configVirtualBox(machine_instance, server_config)
     vb.cpus = server_config['cpus'] || 2
     vb.memory = server_config['memory'] || 2048
 
-    # ssh settings
-    #config.ssh.insert_key = false
-    #config.ssh.private_key_path = ["~/.ssh/id_rsa", "~/.vagrant.d/insecure_private_key"]
-    #config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "~/.ssh/authorized_keys"
-    #config.vm.provision "shell", inline: <<-EOC
-#sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
-#sudo service ssh restart
-#EOC
+    # SSH settings
+    if server_config["ssh-pub-key"]
+      machine_instance.ssh.insert_key = false
+      machine_instance.vm.provision "file", source: server_config["ssh-pub-key"], destination: "~/.ssh/authorized_keys"
+      machine_instance.ssh.private_key_path = [server_config["ssh-prv-key"], "~/.vagrant.d/insecure_private_key"]
+      machine_instance.vm.provision "shell", inline: <<-EOC
+  sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
+  sudo service ssh restart
+EOC
+    end
 
     # Configure the instance group
     if server_config["group"]
@@ -63,6 +65,7 @@ def configVirtualBox(machine_instance, server_config)
       s.privileged = false
       s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
     end
+
     # Execute the provisioning servers
     server_config["scripts"].each do |script, key|
       #serverScript = "./provisioning/" + script + " 2&>1 >> /vagrant/provision.log"
@@ -70,5 +73,4 @@ def configVirtualBox(machine_instance, server_config)
       machine_instance.vm.provision "shell", path: serverScript
     end
   end
-
 end
