@@ -1,9 +1,9 @@
 {
     "servers": {
-        "elastic": {
+        "test-01": {
             "enabled": true,
-            "guest-ip": "10.0.3.10",
-            "guest-hostname": "elastic.vm.server",
+            "guest-ip": "10.0.3.50",
+            "guest-hostname": "test-01.vm.server",
             "ssh-prv-key": "~/.ssh/id_rsa",
             "ssh-pub-key": "~/.ssh/id_rsa.pub",
             "group": "Test Group",
@@ -17,15 +17,14 @@
                 "ssh.sh"
             ]
         },
-        "logstash": {
+        "test-02": {
             "enabled": true,
-            "guest-ip": "10.0.3.30",
-            "guest-hostname": "logstash.vm.server",
+            "guest-ip": "10.0.3.51",
+            "guest-hostname": "test-02.vm.server",
             "ssh-prv-key": "~/.ssh/id_rsa",
             "ssh-pub-key": "~/.ssh/id_rsa.pub",
             "group": "Test Group",
             "box": "ubuntu/trusty64",
-            "box-url": "http://files.vagrantup.com/precise64.box",
             "timezone": "Europe/Madrid",
             "cpus": 1,
             "memory": 2048,
@@ -34,49 +33,13 @@
                 "ssh.sh"
             ]
         },
-        "kibana": {
+        "test-03": {
             "enabled": true,
-            "guest-ip": "10.0.3.20",
-            "guest-hostname": "kibana.vm.server",
-            "ssh-prv-key": "~/.ssh/id_rsa",
-            "ssh-pub-key": "~/.ssh/id_rsa.pub",
-            "group": "test-group",
-            "box": "ubuntu/trusty64",
-            "box-url": "http://files.vagrantup.com/precise64.box",
-            "timezone": "Europe/Madrid",
-            "cpus": 1,
-            "memory": 2048,
-            "scripts": [
-                "bootstrap.sh",
-                "ssh.sh"
-            ]
-        },
-        "base-01": {
-            "enabled": true,
-            "guest-ip": "10.0.3.40",
-            "guest-hostname": "base01.vm.server",
-            "ssh-prv-key": "~/.ssh/id_rsa",
-            "ssh-pub-key": "~/.ssh/id_rsa.pub",
-            "group": "test-group",
-            "box": "ubuntu/trusty64",
-            "box-url": "http://files.vagrantup.com/precise64.box",
-            "timezone": "Europe/Madrid",
-            "cpus": 1,
-            "memory": 2048,
-            "scripts": [
-                "bootstrap.sh",
-                "ssh.sh"
-            ]
-        },
-        "base-02": {
-            "enabled": true,
-            "guest-ip": "10.0.3.41",
-            "guest-hostname": "base02.vm.server",
+            "guest-ip": "10.0.3.52",
+            "guest-hostname": "test-03.vm.server",
             "ssh-prv-key": "~/.ssh/id_rsa",
             "ssh-pub-key": "~/.ssh/id_rsa.pub",
             "group": "Test Group",
-            "box": "ubuntu/trusty64",
-            "box-url": "http://files.vagrantup.com/precise64.box",
             "timezone": "Europe/Madrid",
             "cpus": 1,
             "memory": 2048,
