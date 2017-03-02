@@ -1,0 +1,80 @@
+{
+    "servers": {
+        "test-01": {
+            "enabled": true,
+            "guest-hostname": "test-01.vm.server",
+            "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+            "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+            "guest-ip": "10.0.3.50",
+            "network": [
+              {
+                "network-type": "private",
+                "if-adapter": "eth0",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.50",
+                "if-network": "10.0.3.0",
+                "if-netmask": "255.255.255.0",
+                "if-broadcast": "10.0.3.255",
+                "if-gateway": "10.0.3.1"
+              },
+              {
+                "network-type": "public",
+                "if-adapter": "eth1",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.57",
+                "if-network": "10.0.3.0",
+                "if-netmask": "255.255.255.0",
+                "if-broadcast": "10.0.3.255",
+                "if-gateway": "10.0.3.1"
+              },
+              {
+                "network-type": "public",
+                "if-type": "bridge",
+                "if-adapter": "eth1",
+                "if-inet-type": "dhcp"
+              }
+            ],
+            "group": "Test Group",
+            "box": "ubuntu/trusty64",
+            "box-url": "http://files.vagrantup.com/precise64.box",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "test-02": {
+            "enabled": true,
+            "guest-ip": "10.0.3.51",
+            "guest-hostname": "test-02.vm.server",
+            "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+            "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+            "group": "Test Group",
+            "box": "ubuntu/trusty64",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        },
+        "test-03": {
+            "enabled": true,
+            "guest-ip": "10.0.3.52",
+            "guest-hostname": "test-03.vm.server",
+            "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+            "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+            "group": "Test Group",
+            "timezone": "Europe/Madrid",
+            "cpus": 1,
+            "memory": 2048,
+            "scripts": [
+                "bootstrap.sh",
+                "ssh.sh"
+            ]
+        }
+    }
+}

@@ -2,6 +2,7 @@
     "servers": {
         "test-01": {
             "enabled": true,
+            "provider": "virtualbox",
             "guest-ip": "10.0.3.50",
             "guest-hostname": "test-01.vm.server",
             "ssh-prv-key": "~/.ssh/id_rsa",
@@ -19,6 +20,7 @@
         },
         "test-02": {
             "enabled": true,
+            "provider": "virtualbox",
             "guest-ip": "10.0.3.51",
             "guest-hostname": "test-02.vm.server",
             "ssh-prv-key": "~/.ssh/id_rsa",

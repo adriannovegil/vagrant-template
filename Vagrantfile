@@ -3,7 +3,7 @@
 
 require_relative "lib/required_plugins.rb"
 require_relative "lib/config_loader.rb"
-require_relative "lib/config_virtualbox.rb"
+require_relative "lib/virtualbox/provider.rb"
 require_relative "lib/validate_server_config.rb"
 require 'vagrant/ui'
 

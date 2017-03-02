@@ -1,4 +1,6 @@
 
+require_relative "util/network.rb"
+
 #
 # Function that provision the servers using Virtualbox
 #
@@ -36,7 +38,8 @@ EOC
   machine_instance.vm.hostname = server_config['guest-hostname']
 
   # Network configuration
-  machine_instance.vm.network "private_network", ip: server_config['guest-ip']
+  #machine_instance.vm.network "private_network", ip: server_config['guest-ip']
+  configureNetwork(machine_instance, server_config)
 
   # custom hostname aliases
   if server_config['aliases']
