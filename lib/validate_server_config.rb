@@ -10,13 +10,13 @@ def validateServerConfig(config)
   #end
 
   # Validate the IP Address
-  if !config.has_key?("guest-ip")
-    return false
-  else
-    if !is_ip?(config["guest-ip"])
-      return false
-    end
-  end
+  #if !config.has_key?("guest-ip")
+  #  return false
+  #else
+  #  if !is_ip?(config["guest-ip"])
+  #    return false
+  #  end
+  #end
 
   # All ok, return true
   return true
