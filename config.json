@@ -9,35 +9,38 @@
             "timezone": "Europe/Madrid",
             "cpus": 1,
             "memory": 2048,
-            "ssh-prv-key": "~/.ssh/id_rsa",
-            "ssh-pub-key": "~/.ssh/id_rsa.pub",
-            "network": [
-              {
-                "network-type": "private",
-                "if-adapter": "eth1",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.50"
-              },
-              {
-                "network-type": "private",
-                "if-adapter": "eth2",
-                "if-inet-type": "dhcp"
-              },
-              {
-                "network-type": "public",
-                "if-adapter": "eth3",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.57",
-                "if-netmask": "255.255.255.0"
-              },
-              {
-                "network-type": "public",
-                "if-adapter": "eth4",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.58",
-                "if-netmask": "255.255.255.0"
-              }
-            ],
+            "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+            "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+            "network": {
+              "gateway": "10.0.3.77",
+              "interfaces": [
+                {
+                  "network-type": "private",
+                  "if-adapter": "eth1",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.50"
+                },
+                {
+                  "network-type": "private",
+                  "if-adapter": "eth2",
+                  "if-inet-type": "dhcp"
+                },
+                {
+                  "network-type": "public",
+                  "if-adapter": "eth3",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.57",
+                  "if-netmask": "255.255.255.0"
+                },
+                {
+                  "network-type": "public",
+                  "if-adapter": "eth4",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.58",
+                  "if-netmask": "255.255.255.0"
+                }
+              ]
+            },
             "scripts": [
                 "bootstrap.sh",
                 "ssh.sh"
@@ -52,16 +55,18 @@
           "timezone": "Europe/Madrid",
           "cpus": 1,
           "memory": 2048,
-          "ssh-prv-key": "~/.ssh/id_rsa",
-          "ssh-pub-key": "~/.ssh/id_rsa.pub",
-          "network": [
-            {
-              "network-type": "private",
-              "if-adapter": "eth1",
-              "if-inet-type": "static",
-              "if-address": "10.0.3.51"
-            }
-          ],
+          "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+          "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+          "network": {
+            "interfaces": [
+              {
+                "network-type": "private",
+                "if-adapter": "eth1",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.51"
+              }
+            ]
+          },
           "scripts": [
               "bootstrap.sh",
               "ssh.sh"
@@ -76,16 +81,18 @@
           "timezone": "Europe/Madrid",
           "cpus": 1,
           "memory": 2048,
-          "ssh-prv-key": "~/.ssh/id_rsa",
-          "ssh-pub-key": "~/.ssh/id_rsa.pub",
-          "network": [
-            {
-              "network-type": "private",
-              "if-adapter": "eth1",
-              "if-inet-type": "static",
-              "if-address": "10.0.3.52"
-            }
-          ],
+          "ssh-prv-key": "C:/Users/anno/keys/id_rsa_gft_4096",
+          "ssh-pub-key": "C:/Users/anno/keys/id_rsa_gft_4096.pub",
+          "network": {
+            "interfaces": [
+              {
+                "network-type": "private",
+                "if-adapter": "eth1",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.52"
+              }
+            ]
+          },
           "scripts": [
               "bootstrap.sh",
               "ssh.sh"

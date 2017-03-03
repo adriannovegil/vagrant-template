@@ -11,33 +11,36 @@
             "memory": 2048,
             "ssh-prv-key": "~/.ssh/id_rsa",
             "ssh-pub-key": "~/.ssh/id_rsa.pub",
-            "network": [
-              {
-                "network-type": "private",
-                "if-adapter": "eth1",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.50"
-              },
-              {
-                "network-type": "private",
-                "if-adapter": "eth2",
-                "if-inet-type": "dhcp"
-              },
-              {
-                "network-type": "public",
-                "if-adapter": "eth3",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.57",
-                "if-netmask": "255.255.255.0"
-              },
-              {
-                "network-type": "public",
-                "if-adapter": "eth4",
-                "if-inet-type": "static",
-                "if-address": "10.0.3.58",
-                "if-netmask": "255.255.255.0"
-              }
-            ],
+            "network": {
+              "gateway": "10.0.3.77",
+              "interfaces": [
+                {
+                  "network-type": "private",
+                  "if-adapter": "eth1",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.50"
+                },
+                {
+                  "network-type": "private",
+                  "if-adapter": "eth2",
+                  "if-inet-type": "dhcp"
+                },
+                {
+                  "network-type": "public",
+                  "if-adapter": "eth3",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.57",
+                  "if-netmask": "255.255.255.0"
+                },
+                {
+                  "network-type": "public",
+                  "if-adapter": "eth4",
+                  "if-inet-type": "static",
+                  "if-address": "10.0.3.58",
+                  "if-netmask": "255.255.255.0"
+                }
+              ]
+            },
             "scripts": [
                 "bootstrap.sh",
                 "ssh.sh"
@@ -54,14 +57,16 @@
           "memory": 2048,
           "ssh-prv-key": "~/.ssh/id_rsa",
           "ssh-pub-key": "~/.ssh/id_rsa.pub",
-          "network": [
-            {
-              "network-type": "private",
-              "if-adapter": "eth1",
-              "if-inet-type": "static",
-              "if-address": "10.0.3.51"
-            }
-          ],
+          "network": {
+            "interfaces": [
+              {
+                "network-type": "private",
+                "if-adapter": "eth1",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.51"
+              }
+            ]
+          },
           "scripts": [
               "bootstrap.sh",
               "ssh.sh"
@@ -78,14 +83,16 @@
           "memory": 2048,
           "ssh-prv-key": "~/.ssh/id_rsa",
           "ssh-pub-key": "~/.ssh/id_rsa.pub",
-          "network": [
-            {
-              "network-type": "private",
-              "if-adapter": "eth1",
-              "if-inet-type": "static",
-              "if-address": "10.0.3.52"
-            }
-          ],
+          "network": {
+            "interfaces": [
+              {
+                "network-type": "private",
+                "if-adapter": "eth1",
+                "if-inet-type": "static",
+                "if-address": "10.0.3.52"
+              }
+            ]
+          },
           "scripts": [
               "bootstrap.sh",
               "ssh.sh"
