@@ -12,32 +12,43 @@
             "ssh-prv-key": "~/.ssh/id_rsa",
             "ssh-pub-key": "~/.ssh/id_rsa.pub",
             "network": {
-              "gateway": "10.0.3.77",
+              "gw-ip": "192.168.0.1",
+              "gw-if": "eth4",
               "interfaces": [
                 {
                   "network-type": "private",
                   "if-adapter": "eth1",
                   "if-inet-type": "static",
-                  "if-address": "10.0.3.50"
+                  "if-address": "10.0.3.80",
+                  "if-netmask": "255.255.0.0"
                 },
                 {
                   "network-type": "private",
                   "if-adapter": "eth2",
-                  "if-inet-type": "dhcp"
+                  "if-address": "10.0.3.81"
                 },
                 {
-                  "network-type": "public",
-                  "if-adapter": "eth3",
-                  "if-inet-type": "static",
-                  "if-address": "10.0.3.57",
-                  "if-netmask": "255.255.255.0"
+                  "network-type": "private",
+                  "if-adapter": "eth3"
                 },
                 {
                   "network-type": "public",
                   "if-adapter": "eth4",
                   "if-inet-type": "static",
-                  "if-address": "10.0.3.58",
-                  "if-netmask": "255.255.255.0"
+                  "if-address": "192.168.0.157",
+                  "if-netmask": "255.255.0.0",
+                  "bridge-adapter": "enp1s0"
+                },
+                {
+                  "network-type": "public",
+                  "if-adapter": "eth5",
+                  "if-inet-type": "static",
+                  "if-address": "192.168.0.158"
+                },
+                {
+                  "network-type": "private",
+                  "if-adapter": "eth6",
+                  "if-inet-type": "dhcp"
                 }
               ]
             },

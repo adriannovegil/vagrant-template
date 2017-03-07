@@ -1,14 +1,15 @@
-require 'json'
 require 'resolv'
 
 #
 # Function that configure the network interfaces
+# Params:
+# +machine_instance+::
+# +server_config+::
 #
 def configureNetwork(machine_instance, server_config)
   # Iterate over the network configuration
   if server_config.has_key?("network")
     network_config = server_config["network"]
-    #puts JSON.pretty_generate(network_config)
     # Configure interfaces
     if network_config.has_key?("interfaces")
       interfaces_config = network_config["interfaces"]
@@ -19,33 +20,44 @@ def configureNetwork(machine_instance, server_config)
         next if type != "private" && type != "public"
         # Configure it
         if type == "public"
-          configurePublicNetwork(machine_instance, interface)
+          configureInterface("public_network", machine_instance, interface)
         elsif type == "private"
-          configurePrivateNetwork(machine_instance, interface)
+          configureInterface("private_network", machine_instance, interface)
         end
       end
     end
     # Configure the gateway
-    if network_config.has_key?("gateway")
-      configureGateway(machine_instance, network_config["gateway"])
+    if network_config.has_key?("gw-ip")
+      configureGateway(machine_instance, network_config)
     end
   end
 end
 
-def configureGateway(machine_instance, gateway)
-  # Determine the ip type
-  #case gateway
-  #when Resolv::IPv4::Regex
-    # Default router ipv4
-    machine_instance.vm.provision "shell",
-      run: "always",
-      inline: "route add default gw " + gateway
-  #when Resolv::IPv6::Regex
-    # Default router ipv6
-    #machine_instance.vm.provision "shell",
-    #  run: "always",
-    #  inline: "route -A inet6 add default gw " + gateway
-  #end
+#
+# Configure the gateway
+# Params:
+# +machine_instance+::
+# +network_config+::
+#
+def configureGateway(machine_instance, network_config)
+  # Get the gateway ip
+  gwip = network_config["gw-ip"]
+  # Compose command
+  command = ["route", "add"]
+  case gwip
+  when Resolv::IPv6::Regex
+    command += ["-A", "inet6"]
+  end
+  command += ["default", "gw", gwip]
+  # Get and set the gw interface
+  if network_config.has_key?("gw-if")
+    command << network_config["gw-if"]
+  end
+  # Execute command
+  machine_instance.vm.provision "shell",
+    run: "always",
+    inline: command.join(" ")
+
   # Delete default gw on eth0
   machine_instance.vm.provision "shell",
     run: "always",
@@ -53,32 +65,34 @@ def configureGateway(machine_instance, gateway)
 end
 
 #
-# Configure a public interface
+# Configure a interface
+# Params:
+# +type+::
+# +machine_instance+::
+# +network_config+::
 #
-def configurePublicNetwork(machine_instance, interface)
-  # Disable autoconfig
-  machine_instance.vm.network "public_network",
-    auto_config: false
-  # Manual ip
-  machine_instance.vm.provision "shell",
-    run: "always",
-    inline: "ifconfig " +
-      interface['if-adapter'] + " " +
-      interface['if-address'] +
-      " netmask " + interface['if-netmask'] +
-      " up"
-end
-
-#
-# Configure a private interface
-#
-def configurePrivateNetwork(machine_instance, interface)
-  # Determine the configuration method
-  if interface["if-inet-type"] == "static"
-    machine_instance.vm.network "private_network",
-      ip: interface['if-address']
-  else
-    machine_instance.vm.network "private_network",
-      type: "dhcp"
+def configureInterface(type, machine_instance, interface)
+  # Parameters map
+  parameters = {}
+  if interface["if-inet-type"]
+    if interface["if-inet-type"] == "dhcp"
+      parameters[:type] = interface['if-inet-type']
+      # Configure interface
+      machine_instance.vm.network type, parameters
+      return
+    end
   end
+  if interface["if-address"]
+    parameters[:ip] = interface['if-address']
+    if interface["if-netmask"]
+      parameters[:netmask] = interface['if-netmask']
+    end
+    if interface["bridge-adapter"]
+      parameters[:bridge] = interface['bridge-adapter']
+    end
+  else
+    parameters[:type] = "dhcp"
+  end
+  # Configure interface
+  machine_instance.vm.network type, parameters
 end
