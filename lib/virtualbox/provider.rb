@@ -3,6 +3,9 @@ require_relative "util/network.rb"
 
 #
 # Function that provision the servers using Virtualbox
+# Params:
+# +machine_instance+::
+# +server_config+::
 #
 def configVirtualBox(machine_instance, server_config)
 

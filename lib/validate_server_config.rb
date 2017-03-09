@@ -2,6 +2,8 @@ require 'ipaddr'
 
 #
 # Function that validate the machine config
+# Params:
+# +config+:: Instances configuration
 #
 def validateServerConfig(config)
   # Validate the configuration of the machine.

@@ -57,7 +57,6 @@ def configureGateway(machine_instance, network_config)
   machine_instance.vm.provision "shell",
     run: "always",
     inline: command.join(" ")
-
   # Delete default gw on eth0
   machine_instance.vm.provision "shell",
     run: "always",
@@ -74,7 +73,7 @@ end
 def configureInterface(type, machine_instance, interface)
   # Parameters map
   parameters = {}
-  if interface["if-inet-type"]
+  if interface.has_key?("if-inet-type")
     if interface["if-inet-type"] == "dhcp"
       parameters[:type] = interface['if-inet-type']
       # Configure interface
@@ -82,17 +81,20 @@ def configureInterface(type, machine_instance, interface)
       return
     end
   end
-  if interface["if-address"]
+  if interface.has_key?("if-address")
     parameters[:ip] = interface['if-address']
-    if interface["if-netmask"]
+    if interface.has_key?("if-netmask")
       parameters[:netmask] = interface['if-netmask']
     end
-    if interface["bridge-adapter"]
+    if interface.has_key?("if-adapter")
       parameters[:bridge] = interface['bridge-adapter']
     end
   else
     parameters[:type] = "dhcp"
   end
   # Configure interface
+  # Workaround for Centos 7
+  # service network restart
+  # service NetworkManager restart
   machine_instance.vm.network type, parameters
 end
