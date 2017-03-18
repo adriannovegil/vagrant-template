@@ -1,23 +1,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require_relative "lib/required_plugins.rb"
-require_relative "lib/config_loader.rb"
-require_relative "lib/virtualbox/provider.rb"
-require_relative "lib/validate_server_config.rb"
-require 'vagrant/ui'
+require_relative "lib/template.rb"
 
+require 'vagrant/ui'
 #require 'json'
 
 UI = Vagrant::UI::Colored.new
+TemplateManager = Template::TemplateManager.new
 
 VAGRANTFILE_API_VERSION = "2"
 
 begin
+  # Check if all the mandatory plugins are installed
+  TemplateManager.hasPlugin()
   # Loading the config file
   begin
     UI.info '++> [INFO] Loading the machines config...'
-    machines_config = loadConfig();
+    machines_config = TemplateManager.loadConfig;
   rescue Exception => e
     UI.info '++> [ERROR] ' + e.message
     exit
@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Provision all the machines defined in the config file.
   machines_config["servers"].each do |server_id, server_config|
     # Validate the server configuration
-    if !validateServerConfig(server_config)
+    if !TemplateManager.validateServerConfig(server_config)
       UI.info '++> [ERROR] Error validating machine configuration: ' + server_id
       next
     end
@@ -47,7 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # Determine the provision mechanism
       case server_config["provider"]
       when "virtualbox"
-        configVirtualBox(machine_instance, server_config)
+        TemplateManager.configVirtualBox(machine_instance, server_config)
       else
         UI.info '++> [ERROR] Unknown provider specified: ' + server["provider"]
       end
