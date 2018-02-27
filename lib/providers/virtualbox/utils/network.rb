@@ -1,5 +1,5 @@
-# encoding: ascii-8bit
-# Template Project to generate Vagrant instances easy.
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
 require 'resolv'
 
@@ -104,9 +104,6 @@ module Template
               parameters[:type] = "dhcp"
             end
             # Configure interface
-            # Workaround for Centos 7
-            # service network restart
-            # service NetworkManager restart
             machine_instance.vm.network type, parameters
           end
 

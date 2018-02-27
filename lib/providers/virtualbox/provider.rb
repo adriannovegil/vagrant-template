@@ -1,5 +1,5 @@
-# encoding: ascii-8bit
-# Template Project to generate Vagrant instances easy.
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
 require_relative "utils/network.rb"
 
@@ -28,10 +28,6 @@ module Template
               machine_instance.ssh.insert_key = false
               machine_instance.vm.provision "file", source: server_config["ssh-pub-key"], destination: "~/.ssh/authorized_keys"
               machine_instance.ssh.private_key_path = [server_config["ssh-prv-key"], "~/.vagrant.d/insecure_private_key"]
-              machine_instance.vm.provision "shell", inline: <<-EOC
-          sudo sed -i -e "\\#PasswordAuthentication yes# s#PasswordAuthentication yes#PasswordAuthentication no#g" /etc/ssh/sshd_config
-          sudo service ssh restart
-        EOC
             end
 
             # Configure the instance group
@@ -44,12 +40,20 @@ module Template
             vb.gui = false
           end
 
+          # [Workaround]
+          # default: stdin: is not a tty
+          # If you're using Vagrant with Ubuntu and getting this annoying (but not
+          # impactful) error during provisioning, Just paste this into your Vagrantfile
+          # as the first provisioner:
+          machine_instance.vm.provision "fix-no-tty", type: "shell" do |s|
+            s.privileged = false
+            s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
+          end
+
           # Configure the hostname
           machine_instance.vm.hostname = server_config['guest-hostname']
 
           # Network configuration
-          #machine_instance.vm.network "private_network", ip: server_config['guest-ip']
-          #configureNetwork(machine_instance, server_config)
           Template::Providers::Virtualbox::Utils::NetworkManager.configureNetwork(machine_instance, server_config)
 
           # custom hostname aliases
@@ -72,25 +76,13 @@ module Template
 
           # Provisioning the server
           if server_config.has_key?("scripts")
-            # [Workaround]
-            # default: stdin: is not a tty
-            # If you're using Vagrant with Ubuntu and getting this annoying (but not
-            # impactful) error during provisioning, Just paste this into your Vagrantfile
-            # as the first provisioner:
-            machine_instance.vm.provision "fix-no-tty", type: "shell" do |s|
-              s.privileged = false
-              s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
-            end
-
             # Execute the provisioning servers
             server_config["scripts"].each do |script, key|
-              #serverScript = "./provisioning/" + script + " 2&>1 >> /vagrant/provision.log"
               serverScript = "./provisioning/" + script
               machine_instance.vm.provision "shell", path: serverScript
             end
           end
         end
-        
       end
     end
   end
