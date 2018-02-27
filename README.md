@@ -15,15 +15,25 @@ Configure your instances. You can define a collection virtual machines.
 Following you can see a example of the configuration of a instance.
 
 ```
-"base-01": {
+"test-01": {
     "enabled": true,
-    "guest-ip": "10.0.3.40",
-    "guest-hostname": "base01.vm.server",
+    "guest-hostname": "test-01.vm.server",
+    "group": "Test Group",
     "box": "ubuntu/trusty64",
     "box-url": "http://files.vagrantup.com/precise64.box",
     "timezone": "Europe/Madrid",
     "cpus": 1,
     "memory": 2048,
+    "ssh-prv-key": "~/.ssh/id_rsa",
+    "ssh-pub-key": "~/.ssh/id_rsa.pub",
+    "network": [
+      {
+        "network-type": "private",
+        "if-adapter": "eth1",
+        "if-inet-type": "static",
+        "if-address": "10.0.3.50"
+      }
+    ],
     "scripts": [
         "bootstrap.sh",
         "ssh.sh"
@@ -34,7 +44,6 @@ Following you can see a example of the configuration of a instance.
 | Configuration         |  Value(s)                                                         |
 | --------------------- | ----------------------------------------------------------------- |
 | enabled               | True if we want to provision the machine, false otherwise.        |
-| guest-ip              | IP of the server                                                  |
 | guest-hostname        | Hostname of the server                                            |
 | box                   | Vagrant Box                                                       |
 | box-url               | URL to download the box                                           |
